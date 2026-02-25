@@ -2,12 +2,15 @@ FROM node:24-bookworm-slim
 
 WORKDIR /app
 
-# Copy package files and node_modules installed on host
+# Copy only package files first
 COPY package*.json ./
-COPY node_modules ./node_modules
 
-# Copy rest of the source code
+# Install dependencies inside container
+RUN npm install
+
+# Copy rest of source code
 COPY . .
 
-CMD ["npm", "start"]
+EXPOSE 8080
 
+CMD ["npm", "start"]
