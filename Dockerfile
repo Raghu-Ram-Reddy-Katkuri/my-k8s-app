@@ -1,13 +1,7 @@
-FROM node:24-bookworm-slim
-
+FROM node:18-alpine
 WORKDIR /app
-
-# Copy package files and node_modules installed on host
 COPY package*.json ./
-COPY node_modules ./node_modules
-
-# Copy rest of the source code
+RUN npm install
 COPY . .
-
-CMD ["npm", "start"]
-
+EXPOSE 3000
+CMD ["node", "app.js"]
